@@ -48,13 +48,13 @@ public class CxfConfiguration
 	 *
 	 * @return
 	 */
-	@Bean(name = "cxf")
+	@Bean//(name = "cxf")
 	public SpringBus cxf()
 	{
 		return new SpringBus();
 	}
 
-	@Bean(name="jacksonJaxbJsonProvider")
+	@Bean//(name="jacksonJaxbJsonProvider")
 	public JacksonJaxbJsonProvider jacksonJaxbJsonProvider()
 	{
 		final JacksonJaxbJsonProvider jacksonJaxbJsonProvider = new JacksonJaxbJsonProvider();
