@@ -12,7 +12,7 @@ import de.metas.commons.cxf.TestPojo;
 
 /*
  * #%L
- * de.metas.jax.rs
+ * de.metas.commons.cxf
  * %%
  * Copyright (C) 2016 metas GmbH
  * %%
@@ -50,7 +50,7 @@ public interface ITestService
 	 * The method-path annotation is a bit redundant with the method names, but required to avoid this warning:
 	 *
 	 * <pre>
-	 * WARNING: Both de.metas.jax.rs.server.TestService#getTestPojo and de.metas.jax.rs.server.TestService#addTestJojo are equal candidates for handling the current request which can lead to unpredictable results
+	 * WARNING: Both de.metas.commons.cxf.server.TestService#getTestPojo and de.metas.commons.cxf.server.TestService#addTestJojo are equal candidates for handling the current request which can lead to unpredictable results
 	 * </pre>
 	 *
 	 * @param testPojo

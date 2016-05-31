@@ -13,7 +13,7 @@ import de.metas.commons.cxf.TestPojo;
 
 /*
  * #%L
- * de.metas.jax.rs
+ * de.metas.commons.cxf
  * %%
  * Copyright (C) 2016 metas GmbH
  * %%

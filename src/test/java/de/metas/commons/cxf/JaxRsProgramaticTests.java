@@ -2,7 +2,7 @@ package de.metas.commons.cxf;
 
 /*
  * #%L
- * de.metas.jax.rs
+ * de.metas.commons.cxf
  * %%
  * Copyright (C) 2016 metas GmbH
  * %%
@@ -62,13 +62,13 @@ import de.metas.commons.cxf.testService2.TestService2;
 public class JaxRsProgramaticTests
 {
 
-	private static final String JMS_URL = "tcp://localhost:61616";
-	private static final String JMS_QUEUE = "test.de.metas.jax.rs.jmstransport.queue";
+	private static final String JMS_URL = "tcp://localhost:51610"; // port 51610 should be unique among all tests
+	private static final String JMS_QUEUE = "test.de.metas.commons.cxf.jmstransport.queue";
 
 	private static final String CLIENT_ADDRESS_URL_ENCODED = ""
 			+ "jms:jndi:dynamicQueues/" + JMS_QUEUE
 			+ "?jndiInitialContextFactory=org.apache.activemq.jndi.ActiveMQInitialContextFactory"
-			+ "&replyToName=dynamicQueues/test.de.metas.jax.rs.jmstransport.response"
+			+ "&replyToName=dynamicQueues/test.de.metas.commons.cxf.jmstransport.response"
 			+ "&jndiURL=" + JMS_URL
 			+ "&connectionFactoryName=jmsConnectionFactory";
 

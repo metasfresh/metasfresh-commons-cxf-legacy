@@ -15,15 +15,16 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
 	<!-- note that we use the p-namespace. Docs can be found at http://docs.spring.io/spring/docs/2.5.x/reference/beans.html -->
-	<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory" p:brokerURL="tcp://localhost:61616" />
+	<!-- the port 51611 needs to be kept in sync with the constant in JaxRsSpringEndpointTests -->
+	<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory" p:brokerURL="tcp://localhost:51611" />
 
 	<bean id="jmsConfig" class="org.apache.cxf.transport.jms.JMSConfiguration" p:connectionFactory-ref="jmsConnectionFactory"
-		p:targetDestination="test.de.metas.jax.rs.jmstransport.queue" />
+		p:targetDestination="test.de.metas.commons.cxf.jmstransport.queue" />
 
 	<jaxrs:server id="jaxrs:server:jms" serviceName="test" transportId="http://cxf.apache.org/transports/jms" address="/">
 
 		<jaxrs:serviceBeans>
-			<bean class="de.metas.jax.rs.testService.TestService" />
+			<bean class="de.metas.commons.cxf.testService.TestService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:features>
 			<bean class="org.apache.cxf.transport.jms.JMSConfigFeature" p:jmsConfig-ref="jmsConfig" />
@@ -41,7 +42,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		address="/">
 
 		<jaxrs:serviceBeans>
-			<bean class="de.metas.jax.rs.server.TestService2" />
+			<bean class="de.metas.commons.cxf.server.TestService2" />
 		</jaxrs:serviceBeans>
 		<jaxrs:features>
 			<bean

@@ -4,7 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 /*
  * #%L
- * de.metas.jax.rs
+ * de.metas.commons.cxf
  * %%
  * Copyright (C) 2016 metas GmbH
  * %%
@@ -15,11 +15,11 @@ import static org.hamcrest.Matchers.notNullValue;
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
@@ -56,6 +56,9 @@ import de.metas.commons.cxf.testService.ITestService;
 public class JaxRsSpringEndpointTests
 {
 
+	private static final String JMS_PORT = "51611"; // port 51611 should be unique among all tests
+	private static final String JMS_URL = "tcp://localhost:" + JMS_PORT;
+
 	/**
 	 * Starts a jax-rs server endpoint using jms as transport.<br>
 	 * The actual server endpoint is configured via a spring xml file.<br>
@@ -71,7 +74,7 @@ public class JaxRsSpringEndpointTests
 	@Test
 	public void testServerWithJmsDeclaredResource() throws Exception
 	{
-		final String springBeanXml = "/de/metas/jax/rs/server/spring-cxf-jms-resource_declared.xml";
+		final String springBeanXml = "/de/metas/commons/cxf/spring-cxf-jms-resource_declared.xml";
 		performJmsTransportTest(springBeanXml);
 	}
 
@@ -83,7 +86,7 @@ public class JaxRsSpringEndpointTests
 	@Test
 	public void testServerWithJmsAutoDiscoveredResource() throws Exception
 	{
-		final String springBeanXml = "/de/metas/jax/rs/server/spring-cxf-jms-resource_autodiscovered.xml";
+		final String springBeanXml = "/de/metas/commons/cxf/spring-cxf-jms-resource_autodiscovered.xml";
 		performJmsTransportTest(springBeanXml);
 	}
 
@@ -120,7 +123,7 @@ public class JaxRsSpringEndpointTests
 		broker.setPersistenceAdapter(new MemoryPersistenceAdapter());
 		broker.setDataDirectory("target/activemq-data");
 		final TransportConnector connector = new TransportConnector();
-		connector.setUri(new URI("tcp://localhost:61616"));
+		connector.setUri(new URI(JMS_URL));
 		broker.addConnector(connector);
 		broker.start();
 		return broker;
@@ -135,10 +138,10 @@ public class JaxRsSpringEndpointTests
 
 		// setup the the client
 		final String endpointAddressUrlEncoded = ""
-				+ "jms:jndi:dynamicQueues/test.de.metas.jax.rs.jmstransport.queue"
+				+ "jms:jndi:dynamicQueues/test.de.metas.commons.cxf.jmstransport.queue"
 				+ "?jndiInitialContextFactory=org.apache.activemq.jndi.ActiveMQInitialContextFactory"
-				+ "&replyToName=dynamicQueues/test.de.metas.jax.rs.jmstransport.response"
-				+ "&jndiURL=tcp://localhost:" + "61616"
+				+ "&replyToName=dynamicQueues/test.de.metas.commons.cxf.jmstransport.response"
+				+ "&jndiURL=tcp://localhost:" + JMS_PORT
 				+ "&connectionFactoryName=jmsConnectionFactory";
 
 		final ITestService client = JAXRSClientFactory.create(

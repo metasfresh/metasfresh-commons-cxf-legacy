@@ -10,7 +10,7 @@ import de.metas.commons.cxf.testService.ITestService;
 
 /*
  * #%L
- * de.metas.jax.rs
+ * de.metas.commons.cxf
  * %%
  * Copyright (C) 2016 metas GmbH
  * %%
