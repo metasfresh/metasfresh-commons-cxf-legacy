@@ -1,16 +1,14 @@
 package de.metas.commons.cxf;
 
-
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.feature.LoggingFeature;
 import org.apache.cxf.interceptor.AbstractLoggingInterceptor;
 import org.apache.cxf.management.counters.CounterRepository;
 import org.apache.cxf.management.jmx.InstrumentationManagerImpl;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-
 
 /*
  * #%L
@@ -25,36 +23,39 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
 /**
- * Common cxf configuration.
+ * Common cxf configuration. In order for this config to be available in your application,
+ * please use either the {@link org.springframework.context.annotation.Import} annotation with this class as parameter
+ * or the {@link org.springframework.context.annotation.ComponentScan} annotation, preferably with the {@link Cxf} no-op marker class as parameter.
  *
  * @author metas-dev <dev@metasfresh.com>
  *
  */
-@Service
+@Configuration
 public class CxfConfiguration
 {
 	/**
-	 * Creates the cxf bus. Note that "cxf is the bean's default name. If you give it a different name, you need to make it know to e.g. the CXFServlet.
+	 * Creates the cxf bus.<br>
+	 * Note that "cxf" is the bean's default name. If you give it a different name, you need to make it know to e.g. the CXFServlet.
 	 *
 	 * @return
 	 */
-	@Bean//(name = "cxf")
+	@Bean
 	public SpringBus cxf()
 	{
 		return new SpringBus();
 	}
 
-	@Bean//(name="jacksonJaxbJsonProvider")
+	@Bean
 	public JacksonJaxbJsonProvider jacksonJaxbJsonProvider()
 	{
 		final JacksonJaxbJsonProvider jacksonJaxbJsonProvider = new JacksonJaxbJsonProvider();
@@ -94,8 +95,8 @@ public class CxfConfiguration
 		final int limit = AbstractLoggingInterceptor.DEFAULT_LIMIT + 1;
 
 		final LoggingFeature loggingFeature = new LoggingFeature(
-				null,    // use default
-				null,    // use default
+				null,      // use default
+				null,      // use default
 				limit,
 				prettyPrint,
 				showBinary);
